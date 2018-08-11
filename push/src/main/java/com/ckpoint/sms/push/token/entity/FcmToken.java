@@ -1,6 +1,7 @@
 package com.ckpoint.sms.push.token.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,8 @@ public class FcmToken {
     private Long id ;
 
     private String phone;
+
+    @Type(type = "text")
     private String token;
 
     private long sendCnt ;

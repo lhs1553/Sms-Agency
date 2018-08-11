@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FcmTokenRepository extends JpaRepository<FcmToken, Long> {
+    FcmToken findFirstByPhoneOrderByIdDesc(String phone);
     List<FcmToken> findByPhone(String phone);
-    FcmToken findFirstByTokenIsNotNullOrderBySendCnt();
 }

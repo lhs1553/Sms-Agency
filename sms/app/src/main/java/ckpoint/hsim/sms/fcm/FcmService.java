@@ -15,7 +15,7 @@ public class FcmService extends FirebaseMessagingService {
 
         Map<String, String> message = remoteMessage.getData();
         SmsMsg smsMsg = new SmsMsg();
-        smsMsg.setPhone(message.get("phone"));
+        smsMsg.setRecvNumber(message.get("recvNumber"));
         smsMsg.setMessage(message.get("message"));
         smsMsg.setId(Long.parseLong(message.get("id")));
         smsSender.sendMessageTo(smsMsg);

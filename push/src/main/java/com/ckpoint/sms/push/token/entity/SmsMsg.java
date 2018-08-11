@@ -1,6 +1,7 @@
 package com.ckpoint.sms.push.token.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,10 @@ public class SmsMsg {
     private Long id;
     private Long tokenId;
 
-    private String phone;
+    private String sendNumber;
+    private String recvNumber;
+
+    @Type(type = "text")
     private String message;
 
     private Date sendDate;

@@ -13,6 +13,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SmsSendServiceImpl implements SmsSendService {
@@ -29,9 +32,11 @@ public class SmsSendServiceImpl implements SmsSendService {
     RestRequest restRequest;
 
     @Override
-    @Async
     public SmsMsg sendSms(SmsMsg smsMsg) {
-        FcmToken fcmToken= this.fcmTokenRepository.findFirstByTokenIsNotNullOrderBySendCnt();
+        FcmToken fcmToken= this.fcmTokenRepository.findFirstByPhoneOrderByIdDesc(smsMsg.getSendNumber().replaceAll("-", ""));
+        if(fcmToken == null) {
+            throw new RuntimeException("unauthorization");
+        }
         smsMsg.updateSendDate();
         smsMsg.setTokenId(fcmToken.getId());
         smsMsg = this.smsMsgRepository.save(smsMsg);
