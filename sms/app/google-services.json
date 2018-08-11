@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "359046198532",
+    "firebase_url": "https://sms-proxy-2fab8.firebaseio.com",
+    "project_id": "sms-proxy-2fab8",
+    "storage_bucket": "sms-proxy-2fab8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359046198532:android:ad8f69a6b55bd0b0",
+        "android_client_info": {
+          "package_name": "com.ckpoint.sms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359046198532-7gv2to9in94h5uo905tjddj724ti9ke7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3MXZ7qXjecSZlciavPfziaDIymPQcSQE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

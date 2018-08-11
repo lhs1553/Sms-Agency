@@ -1,0 +1,33 @@
+package com.ckpoint.sms.push.token.entity;
+
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+
+@Entity
+@Data
+public class SmsMsg {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Long tokenId;
+
+    private String phone;
+    private String message;
+
+    private Date sendDate;
+    private Date callBackDate;
+
+    public void updateSendDate() {
+        this.sendDate = new Date();
+    }
+
+    public void updateCallbackDate() {
+        this.callBackDate = new Date();
+    }
+}
