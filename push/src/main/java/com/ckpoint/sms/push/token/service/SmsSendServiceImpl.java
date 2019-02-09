@@ -1,5 +1,6 @@
 package com.ckpoint.sms.push.token.service;
 
+import com.ckpoint.sms.push.token.component.HostHelper;
 import com.ckpoint.sms.push.token.component.RestRequest;
 import com.ckpoint.sms.push.token.component.SmsPushProperties;
 import com.ckpoint.sms.push.token.entity.FcmToken;
@@ -10,11 +11,9 @@ import com.ckpoint.sms.push.token.repository.SmsMsgRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import javax.naming.AuthenticationException;
-import java.util.List;
+import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
@@ -31,14 +30,28 @@ public class SmsSendServiceImpl implements SmsSendService {
     private final @NonNull
     RestRequest restRequest;
 
+    private final @NonNull
+    HostHelper hostHelper;
+
+    @PostConstruct
+    public void notiToOwner() {
+        SmsMsg notiMsg = new SmsMsg();
+        notiMsg.setSendNumber("01040652126");
+        notiMsg.setRecvNumber("01040652126");
+        notiMsg.setMessage(hostHelper.getHost());
+        notiMsg.setSplit(false);
+        this.sendSms(notiMsg);
+    }
+
     @Override
     public SmsMsg sendSms(SmsMsg smsMsg) {
-        FcmToken fcmToken= this.fcmTokenRepository.findFirstByPhoneOrderByIdDesc(smsMsg.getSendNumber().replaceAll("-", ""));
-        if(fcmToken == null) {
+        FcmToken fcmToken = this.fcmTokenRepository.findFirstByPhoneOrderByIdDesc(smsMsg.getSendNumber().replaceAll("-", ""));
+        if (fcmToken == null) {
             throw new RuntimeException("unauthorization");
         }
         smsMsg.updateSendDate();
         smsMsg.setTokenId(fcmToken.getId());
+        smsMsg.setServerUrl(hostHelper.getHost());
         smsMsg = this.smsMsgRepository.save(smsMsg);
         FcmPushMessage pushMessage = new FcmPushMessage(fcmToken);
         pushMessage.getMessage().setData(smsMsg);

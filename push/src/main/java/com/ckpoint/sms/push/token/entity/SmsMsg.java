@@ -3,10 +3,7 @@ package com.ckpoint.sms.push.token.entity;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -26,6 +23,15 @@ public class SmsMsg {
 
     private Date sendDate;
     private Date callBackDate;
+
+    @Transient
+    private String serverUrl;
+
+    private boolean split ;
+
+    public SmsMsg(){
+        this.split = true;
+    }
 
     public void updateSendDate() {
         this.sendDate = new Date();

@@ -30,17 +30,19 @@ public class SmsSender {
         Retrofit retrofit= new Retrofit.Builder().baseUrl(SmsProxyConfig.SMS_SERVICE_SERVER).addConverterFactory(JacksonConverterFactory.create()).build();
         final SmsApi smsRest= retrofit.create(SmsApi.class);
 
-        smsRest.smsSendCallback(smsMsg.getId()).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.i("smsCallback","callback success") ;
-            }
+        if(smsMsg.getId() != null) {
+            smsRest.smsSendCallback(smsMsg.getId()).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Log.i("smsCallback", "callback success");
+                }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.i("smsCallback","callback fail") ;
-            }
-        });
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.i("smsCallback", "callback fail");
+                }
+            });
+        }
 
     }
 
