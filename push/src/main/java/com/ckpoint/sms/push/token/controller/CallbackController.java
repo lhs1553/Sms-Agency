@@ -1,24 +1,23 @@
 package com.ckpoint.sms.push.token.controller;
 
-import com.ckpoint.sms.push.token.entity.SmsMsg;
 import com.ckpoint.sms.push.token.service.SmsSendService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/callback")
 @RequiredArgsConstructor
-public class SmsController {
+public class CallbackController {
     private final @NonNull
     SmsSendService smsSendService;
 
-    @PostMapping("/send/sms")
-    public void sendSms(@RequestBody SmsMsg smsMsg) {
-        this.smsSendService.sendSms(smsMsg);
+    @GetMapping("/{id}")
+    public void sendSms(@PathVariable Long id) {
+        this.smsSendService.callback(id);
     }
 
 

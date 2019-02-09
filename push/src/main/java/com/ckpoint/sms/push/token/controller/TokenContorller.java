@@ -16,7 +16,7 @@ public class TokenContorller {
 
     private final @NonNull FcmTokenService fcmTokenService;
 
-    @PostMapping("regist/token")
+    @PostMapping("/regist/token")
     public FcmToken registToken(@RequestBody FcmToken fcmToken) {
         return this.fcmTokenService.registFcmToken(fcmToken);
     }
